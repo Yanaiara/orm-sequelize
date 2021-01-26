@@ -1,14 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const routes = require("./routes");
 const app = express();
 const PORT = 5000;
 
-app.use(bodyParser.json());
+routes(app);
 
-app.get('/', (req, res) => {
-    res.status(200).send({message: 'welcome baby'})
-})
-
-app.listen(PORT, () => console.log('rodando'));
+app.listen(PORT, () => console.log(`PORT: ${PORT}`));
 
 module.exports = app;
