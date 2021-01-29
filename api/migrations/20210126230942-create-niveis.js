@@ -1,29 +1,27 @@
+'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert(
-      "Niveis",
-      [
-        {
-          descr_nivel: "básico",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          descr_nivel: "intermediário",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          descr_nivel: "avançado",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      {}
-    );
+    return queryInterface.createTable('Niveis', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      descr_nivel: {
+        type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
   },
-
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Niveis", null, {});
-  },
+    return queryInterface.dropTable('Niveis');
+  }
 };

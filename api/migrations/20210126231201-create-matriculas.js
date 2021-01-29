@@ -1,52 +1,37 @@
+'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-		return queryInterface.bulkInsert('Matriculas', [
-			{
-				status: "confirmado",
-				id_aluno: 1,
-				id_turma: 1,
-				createdAt: new Date(),
-				updatedAt: new Date()
-		},
-		{
-			status: "confirmado",
-			id_aluno: 2,
-			id_turma: 1,
-			createdAt: new Date(),
-			updatedAt: new Date()
-	},
-		{
-			status: "confirmado",
-			id_aluno: 3,
-			id_turma: 2,
-			createdAt: new Date(),
-			updatedAt: new Date()
-	},
-		{
-			status: "confirmado",
-			id_aluno: 4,
-			id_turma: 3,
-			createdAt: new Date(),
-			updatedAt: new Date()
-	},
-		{
-			status: "cancelado",
-			id_aluno: 1,
-			id_turma: 2,
-			createdAt: new Date(),
-			updatedAt: new Date()
-	},
-		{
-			status: "cancelado",
-			id_aluno: 2,
-			id_turma: 2,
-			createdAt: new Date(),
-			updatedAt: new Date()
-		}
-		], {})
+    return queryInterface.createTable('Matriculas', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      estudante_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'Pessoas', key: 'id'}
+      },
+      status: {
+        type: Sequelize.STRING
+      },
+      turma_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'Turmass', key: 'id'}
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
   },
-
   down: (queryInterface, Sequelize) => {
-		return queryInterface.bulkDelete('Matriculas', null, {})
+    return queryInterface.dropTable('Matriculas');
   }
-}
+};

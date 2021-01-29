@@ -1,43 +1,37 @@
-"use strict";
+'use strict';
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable(
-      "Turmasses",
-      [
-        {
-          data_inicio: "2020-02-01",
-          nivel: 1,
-          docente: 6,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          data_inicio: "2020-02-01",
-          nivel: 2,
-          docente: 5,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          data_inicio: "2020-02-01",
-          nivel: 3,
-          docente: 6,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          data_inicio: "2020-07-01",
-          nivel: 3,
-          docente: 6,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      {}
-    );
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('Turmass', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      docente_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'Pessoas', key: 'id'}
+      },
+      data_inicio: {
+        type: Sequelize.DATEONLY
+      },
+      nivel_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'Niveis', key: 'id'}
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
   },
-
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Turmas", null, {});
-  },
+    return queryInterface.dropTable('Turmass');
+  }
 };
